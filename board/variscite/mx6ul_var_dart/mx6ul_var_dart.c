@@ -569,16 +569,21 @@ static iomux_v3_cfg_t const fec2_pads[] = {
 	MX6_PAD_ENET2_RX_DATA1__ENET2_RDATA01 | MUX_PAD_CTRL(ENET_PAD_CTRL),
 	MX6_PAD_ENET2_RX_EN__ENET2_RX_EN | MUX_PAD_CTRL(ENET_PAD_CTRL),
 	MX6_PAD_ENET2_RX_ER__ENET2_RX_ER | MUX_PAD_CTRL(ENET_PAD_CTRL),
+	MX6_PAD_ENET1_TX_EN__GPIO2_IO05 | MUX_PAD_CTRL(ENET_PAD_CTRL),
+
+
 };
 
 static void setup_iomux_fec(int fec_id)
 {
-	if (fec_id == 0)
+imx_iomux_v3_setup_multiple_pads(fec1_pads,
+						 ARRAY_SIZE(fec1_pads));
+	/*if (fec_id == 0)
 		imx_iomux_v3_setup_multiple_pads(fec1_pads,
 						 ARRAY_SIZE(fec1_pads));
 	else
 		imx_iomux_v3_setup_multiple_pads(fec2_pads,
-						 ARRAY_SIZE(fec2_pads));
+						 ARRAY_SIZE(fec2_pads));*/
 }
 
 int board_eth_init(bd_t *bis)
@@ -811,9 +816,9 @@ static struct mx6ul_iomux_ddr_regs mx6_ddr_ioregs = {
 
 static struct mx6_mmdc_calibration mx6_mmcd_calib = {
 	.p0_mpwldectrl0 = 0x00000000,
-	.p0_mpdgctrl0   = 0x414C0158,
-	.p0_mprddlctl   = 0x40403A3A,
-	.p0_mpwrdlctl   = 0x40405A56,
+	.p0_mpdgctrl0   = 0x4160015C,
+	.p0_mprddlctl   = 0x40404650,
+	.p0_mpwrdlctl   = 0x4040423A,
 };
 
 struct mx6_ddr_sysinfo ddr_sysinfo = {
